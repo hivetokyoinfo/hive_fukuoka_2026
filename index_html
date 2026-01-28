@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hive Fukuoka 2026 | 仲間募集</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        // Updated to Helvetica Neue priority for a stylish look
+                        sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', '"Noto Sans JP"', 'sans-serif'],
+                        montserrat: ['"Montserrat"', 'sans-serif'],
+                    },
+                    colors: {
+                        // Key Colors (Navy)
+                        primary: {
+                            50: '#e8eef5', // key.light
+                            100: '#c2d1e0',
+                            200: '#9ab5cc',
+                            300: '#7198b7',
+                            400: '#497ca3',
+                            500: '#0a3161', // key.primary (Main Navy)
+                            600: '#1a4a8a', // key.secondary (Hover)
+                            700: '#0d4280', // key.tertiary (Active)
+                            800: '#082548',
+                            900: '#041326',
+                        },
+                        // Base Colors
+                        base: {
+                            primary: '#f4f6f8',   // Main bg (slightly darker than white)
+                            secondary: '#ffffff', // Card/Section bg
+                            tertiary: '#e2e8f0',  // Border
+                        },
+                        // Text Colors
+                        txt: {
+                            primary: '#1e293b',   // Main text
+                            secondary: '#475569', // Sub text
+                            muted: '#94a3b8',     // Muted
+                            inverse: '#ffffff',   // Text on Navy
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
+                    },
+                    boxShadow: {
+                        'card': '0 10px 30px -10px rgba(10, 49, 97, 0.1)',
+                        'card-hover': '0 25px 50px -12px rgba(10, 49, 97, 0.25)', // Enhanced shadow
+                        'floating': '0 0 20px rgba(10, 49, 97, 0.2)',
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'ken-burns': 'ken-burns 20s ease-out forwards', // Slow zoom effect
+                        'shine': 'shine 3s infinite', // Button shine
+                    },
+                    keyframes: {
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 1, boxShadow: '0 0 0 0 rgba(10, 49, 97, 0.4)' },
+                            '50%': { opacity: .9, boxShadow: '0 0 20px 0 rgba(10, 49, 97, 0.2)' },
+                        },
+                        'ken-burns': {
+                            '0%': { transform: 'scale(1.1)' },
+                            '100%': { transform: 'scale(1.0)' },
+                        },
+                        'shine': {
+                            '0%': { left: '-100%' },
+                            '20%': { left: '100%' },
+                            '100%': { left: '100%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        html {
+            /* Prevent fixed header from covering section titles */
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-feature-settings: "palt";
+            letter-spacing: 0.05em;
+            padding-bottom: 80px; /* Space for mobile floating CTA */
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                padding-bottom: 0;
+            }
+        }
+        
+        /* Smooth Fade In Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); /* More elegant easing */
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism for Navy Header */
+        .glass-navy {
+            background: rgba(10, 49, 97, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Shine Effect for Buttons */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 4s infinite;
+            pointer-events: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0f0f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0a3161;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1a4a8a;
+        }
+    </style>
+</head>
+<body class="bg-base-primary text-txt-primary antialiased selection:bg-primary-100 selection:text-primary-900 font-sans tracking-wide">
+
+    <!-- Header -->
+    <header id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500">
+        <div class="w-full relative">
+            <div class="glass-navy px-4 md:px-8 py-3 md:py-4 flex justify-between items-center transition-all duration-300 shadow-md relative z-50" id="nav-container">
+                <a href="#home" class="text-lg md:text-xl font-black tracking-tighter text-txt-inverse hover:text-primary-200 transition flex items-center gap-2 font-montserrat">
+                    <span class="w-2 h-2 bg-white rounded-full inline-block animate-pulse shadow-[0_0_10px_#ffffff]"></span>
+                    Hive Fukuoka <span class="text-primary-200 font-light">2026</span>
+                </a>
+                
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-6 lg:space-x-8 text-xs lg:text-sm font-bold text-gray-300 font-montserrat tracking-wide items-center">
+                    <a href="#about" class="hover:text-white transition-colors relative group py-2">
+                        ABOUT
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#why-fukuoka" class="hover:text-white transition-colors relative group py-2">
+                        LOCATION
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#achievements" class="hover:text-white transition-colors relative group py-2">
+                        HISTORY
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#message" class="hover:text-white transition-colors relative group py-2">
+                        MESSAGE
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
+                    </a>
+                    
+                    <!-- Desktop Header CTA -->
+                    <a href="#apply" class="hidden md:inline-flex items-center justify-center px-6 py-2.5 text-xs font-bold text-primary-500 transition-all duration-200 bg-white rounded-full hover:bg-primary-50 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white shadow-lg font-montserrat btn-shine">
+                        APPLY NOW
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden p-2 text-white hover:text-primary-200 transition focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-primary-900/95 backdrop-blur-xl shadow-xl border-t border-primary-800 p-4 md:hidden origin-top animate-fade-in-down z-40 h-[calc(100vh-60px)]">
+                <div class="flex flex-col space-y-6 pt-8 px-4 font-montserrat text-center overflow-y-auto max-h-full pb-20">
+                    <a href="#about" class="block py-3 text-xl font-bold text-white hover:text-primary-300 transition">ABOUT</a>
+                    <a href="#why-fukuoka" class="block py-3 text-xl font-bold text-white hover:text-primary-300 transition">LOCATION</a>
+                    <a href="#achievements" class="block py-3 text-xl font-bold text-white hover:text-primary-300 transition">HISTORY</a>
+                    <a href="#message" class="block py-3 text-xl font-bold text-white hover:text-primary-300 transition">MESSAGE</a>
+                    <div class="pt-8 border-t border-primary-800">
+                         <p class="text-primary-400 text-xs mb-4 tracking-widest uppercase">Invitation Only</p>
+                         <a href="#apply" class="block py-4 px-4 rounded-full text-primary-900 font-bold bg-white text-center shadow-lg transform active:scale-95 transition-all">
+                            参加お申し込み
+                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <!-- Increased padding-top for more breathing room (pt-32 md:pt-44) -->
+        <section id="home" class="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden bg-primary-900 pt-32 md:pt-44">
+            <!-- Background Image with Ken Burns Effect -->
+            <!-- Note: Wrapped in a div with overflow-hidden to contain the scale animation -->
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center animate-ken-burns opacity-40 mix-blend-overlay"></div>
+            </div>
+            
+            <!-- Dynamic Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-br from-primary-900/95 via-primary-900/70 to-primary-800/90 z-0"></div>
+            
+            <!-- Animated Particles/Shapes -->
+            <div class="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-primary-400/10 rounded-full blur-[80px] md:blur-[100px] animate-pulse pointer-events-none"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary-600/10 rounded-full blur-[80px] md:blur-[120px] animate-pulse pointer-events-none" style="animation-delay: 2s;"></div>
+
+            <div class="container mx-auto px-4 md:px-6 relative z-10 text-center">
+                <div class="reveal active space-y-8 md:space-y-10">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 py-1.5 px-4 md:py-2 md:px-6 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shadow-2xl mb-2 hover:bg-white/10 transition-colors duration-300 ring-1 ring-white/20">
+                        <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-400 animate-pulse shadow-[0_0_10px_#4ade80]"></span>
+                        <span class="text-white text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase font-montserrat">Invitation Only</span>
+                    </div>
+
+                    <!-- Main Title -->
+                    <div class="relative transform transition-transform hover:scale-[1.01] duration-700">
+                        <h1 class="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white leading-none font-montserrat drop-shadow-2xl">
+                            HIVE<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-br from-white via-primary-100 to-primary-300/80 filter drop-shadow-lg">FUKUOKA</span>
+                        </h1>
+                        <p class="absolute -bottom-4 md:-bottom-8 right-0 md:right-auto md:left-1/2 md:translate-x-[120px] text-4xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-primary-500/0 to-white/10 z-[-1] font-montserrat select-none">2026</p>
+                    </div>
+                    
+                    <!-- Decorative Line -->
+                    <div class="flex items-center justify-center gap-4 opacity-60 my-6">
+                        <div class="h-px w-8 md:w-16 bg-gradient-to-r from-transparent to-white"></div>
+                        <div class="w-2 h-2 rotate-45 border border-white/50"></div>
+                        <div class="h-px w-8 md:w-16 bg-gradient-to-l from-transparent to-white"></div>
+                    </div>
+
+                    <!-- Subtext -->
+                    <p class="text-base md:text-xl font-medium text-primary-100/90 max-w-2xl mx-auto leading-loose px-4 tracking-wide text-shadow-sm">
+                        10年後の日本を創る私たちが、福岡に集まる。<br>
+                        <span class="text-white font-bold border-b border-primary-400/50 pb-1">あなたの「問い」が、世界を変える起点になる。</span>
+                    </p>
+
+                    <!-- Hero CTA Button -->
+                    <div class="pt-8 md:pt-12">
+                         <a href="#apply" class="btn-shine inline-flex items-center justify-center px-8 py-4 md:px-10 md:py-5 text-sm md:text-base font-bold text-primary-900 transition-all duration-300 bg-white rounded-full hover:bg-primary-50 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-white group">
+                            参加お申し込み
+                            <svg class="w-5 h-5 ml-2 -mr-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                    
+                    <!-- Scroll Indicator -->
+                    <div class="pt-16 md:pt-24 pb-8">
+                        <a href="#invitation" class="inline-flex flex-col items-center gap-3 text-white/40 hover:text-white transition-colors duration-300 cursor-pointer group">
+                            <span class="text-[10px] font-bold tracking-[0.3em] uppercase font-montserrat group-hover:translate-y-1 transition-transform">Scroll Down</span>
+                            <div class="w-[1px] h-12 md:h-16 bg-gradient-to-b from-white/0 via-white/40 to-white/0 relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-full h-1/2 bg-white animate-dropdown"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <style>
+                @keyframes dropdown {
+                    0% { transform: translateY(-100%); opacity: 0; }
+                    50% { opacity: 1; }
+                    100% { transform: translateY(100%); opacity: 0; }
+                }
+                .animate-dropdown {
+                    animation: dropdown 1.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+                }
+                .text-shadow-sm {
+                    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                }
+            </style>
+        </section>
+
+        <!-- Section 1: Invitation -->
+        <!-- Negative top margin to create overlap effect with Hero -->
+        <section id="invitation" class="pb-20 md:pb-32 bg-base-primary relative z-20">
+            <div class="container mx-auto px-4 md:px-6 max-w-4xl relative">
+                <!-- Overlapping Card -->
+                <div class="reveal -mt-10 md:-mt-20">
+                    <div class="bg-white rounded-2xl p-8 md:p-14 border border-base-tertiary relative overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.1)]">
+                        <!-- Decorative element -->
+                        <div class="absolute top-0 right-0 -mt-16 -mr-16 w-40 md:w-64 h-40 md:h-64 bg-primary-100/50 rounded-full blur-3xl opacity-60"></div>
+                        <div class="absolute bottom-0 left-0 -mb-16 -ml-16 w-32 md:w-40 h-32 md:h-40 bg-primary-50 rounded-full blur-2xl opacity-60"></div>
+
+                        <div class="relative z-10 space-y-10 md:space-y-12">
+                            <div class="text-center">
+                                <span class="text-primary-500 font-bold tracking-widest uppercase text-xs mb-4 block font-montserrat opacity-60">Invitation Letter</span>
+                                <h2 class="text-2xl md:text-4xl font-black text-primary-500 leading-tight">
+                                    人生に、社会に、未来に。<br>
+                                    <span class="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">本気のあなたへ</span>
+                                </h2>
+                            </div>
+
+                            <p class="text-base md:text-lg text-txt-primary leading-loose font-medium">
+                                社会への違和感。成し遂げたい何か。心の奥で燃える、純粋な情熱。<br class="hidden md:block">
+                                日常に埋もれ、誰にも話せず、一人で抱え込んではいませんか？
+                            </p>
+
+                            <div class="relative pl-6 md:pl-8 py-2 border-l-2 border-primary-200">
+                                <h3 class="text-xl md:text-2xl font-bold text-primary-500 mb-4">「Hive Fukuoka 2026」は、<br class="md:hidden">あなたのための場所です。</h3>
+                                <p class="text-txt-secondary text-sm md:text-base leading-relaxed">
+                                    東京と福岡、それぞれの場所で未来を創ろうと挑戦する若者が集い、利害関係なく、ただひたすらに「志」と「問い」をぶつけ合う。そんな合宿が、ここ福岡で幕を開けます。
+                                </p>
+                            </div>
+
+                            <p class="text-txt-primary text-sm md:text-base leading-relaxed">
+                                私たちが求めるのは、完璧な経歴や実績ではありません。「どんな社会を生きたいか」「自分はどんな問いと共に生きるか」を、心の底から語り合いたいという、その熱意だけです。
+                            </p>
+                            
+                            <div class="text-right pt-4">
+                                <span class="font-en text-2xl md:text-3xl font-black text-gray-100 select-none tracking-tight">HIVE FUKUOKA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Concept Movie Section -->
+        <section class="py-20 bg-white border-y border-base-tertiary">
+            <div class="container mx-auto px-4 md:px-6 max-w-5xl">
+                <div class="text-center mb-12 reveal">
+                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-60">Concept Movie</span>
+                    <h2 class="text-2xl md:text-4xl font-black text-primary-500 mt-3">熱狂の瞬間を、映像で。</h2>
+                    <p class="text-txt-secondary text-sm mt-4">HIVEの空気を、肌で感じてください。</p>
+                </div>
+                
+                <div class="reveal relative w-full pt-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-base-tertiary group bg-black transform transition-transform hover:scale-[1.01] duration-500">
+                    <iframe src="https://player.vimeo.com/video/792859255?h=0&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Event Details -->
+        <section class="py-20 md:py-32 bg-base-primary relative overflow-hidden border-b border-base-tertiary">
+            <!-- Background Decoration -->
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
+            
+            <div class="container mx-auto px-4 md:px-6 max-w-6xl relative z-10">
+                <div class="grid md:grid-cols-2 gap-10 md:gap-20 items-center">
+                    <div class="reveal">
+                        <h2 class="text-3xl md:text-5xl font-black mb-6 md:mb-8 leading-tight text-primary-500">
+                            あなたを、<br>
+                            <span class="relative inline-block z-10">
+                                Hive Fukuoka
+                                <span class="absolute bottom-2 left-0 w-full h-3 md:h-4 bg-primary-200/40 -z-10 transform -rotate-1 skew-x-12"></span>
+                            </span> に<br>
+                            招待する理由。
+                        </h2>
+                        <p class="text-txt-secondary text-base md:text-lg mb-8 md:mb-10 leading-relaxed">
+                            この場所は「何かに本気」、そんな人が集まる場所です。<br>
+                            今現在の実績は問いません。<br>
+                            「10年かけて、大きく成果を残す」そんな気概がある人を求めています。
+                        </p>
+                        
+                        <div class="flex items-center gap-4 text-sm font-bold text-primary-500 tracking-wider">
+                             <div class="w-12 h-px bg-primary-500"></div>
+                             BE AMBITIOUS
+                        </div>
+                    </div>
+
+                    <div class="reveal bg-white rounded-2xl shadow-card hover:shadow-card-hover p-6 md:p-10 border border-base-tertiary transition-all duration-500 transform hover:-translate-y-2">
+                        <div class="flex items-center justify-between mb-6 md:mb-8 border-b border-base-tertiary pb-6">
+                            <h3 class="text-xl md:text-2xl font-bold flex items-center gap-3 text-primary-500">
+                                <span class="bg-primary-50 p-2 rounded-lg text-primary-600">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </span>
+                                開催概要
+                            </h3>
+                            <span class="text-[10px] md:text-xs font-bold text-primary-600 bg-primary-100/50 px-3 py-1 rounded-full tracking-wide">PLANNED</span>
+                        </div>
+                        
+                        <div class="space-y-6 md:space-y-8">
+                            <div class="flex flex-col md:flex-row gap-2 md:gap-6 items-start">
+                                <div class="w-24 flex-shrink-0 text-xs font-bold text-txt-muted uppercase tracking-wider font-montserrat pt-1">Date</div>
+                                <div>
+                                    <p class="text-lg md:text-xl font-bold text-txt-primary">2026年5月16日(土)・17日(日)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col md:flex-row gap-2 md:gap-6 items-start w-full">
+                                <div class="w-24 flex-shrink-0 text-xs font-bold text-txt-muted uppercase tracking-wider font-montserrat pt-1">Place</div>
+                                <div class="space-y-3 w-full">
+                                    <div class="flex items-center justify-between bg-base-primary p-3 rounded-lg border border-transparent hover:border-primary-100 transition-colors">
+                                        <span class="text-sm font-bold text-txt-primary">大名カンファレンス</span>
+                                        <span class="text-[10px] px-2 py-0.5 rounded bg-primary-500 text-white font-bold">Day 1</span>
+                                    </div>
+                                    <div class="flex items-center justify-between bg-base-primary p-3 rounded-lg opacity-70 border border-transparent hover:border-primary-100 transition-colors">
+                                        <span class="text-sm font-bold text-txt-primary">当日をお楽しみに</span>
+                                        <span class="text-[10px] px-2 py-0.5 rounded bg-txt-muted text-white font-bold">Day 2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col md:flex-row gap-2 md:gap-6 items-start">
+                                <div class="w-24 flex-shrink-0 text-xs font-bold text-txt-muted uppercase tracking-wider font-montserrat pt-1">Members</div>
+                                <div>
+                                    <p class="text-txt-secondary leading-relaxed text-sm md:text-base">
+                                        東京からの遠征組と、福岡在住のローカル組が交差する。
+                                        多様なバックグラウンドを持つ<span class="text-primary-500 font-bold border-b-2 border-primary-200">熱き50名</span>が集結。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Value Proposition -->
+        <section id="why-hive" class="py-20 md:py-32 bg-white">
+             <div class="container mx-auto px-4 md:px-6 max-w-6xl">
+                <div class="text-center mb-16 md:mb-20 reveal">
+                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-60">Value Proposition</span>
+                    <h2 class="text-3xl md:text-5xl font-black text-primary-500 mt-3">今、私たちがここに集う意味</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    <!-- Card 1: 志の覚醒 -->
+                    <div class="reveal bg-base-primary p-6 md:p-8 rounded-2xl transition-all duration-300 border border-transparent hover:border-primary-100 hover:bg-white hover:shadow-card-hover group cursor-default">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl flex items-center justify-center mb-4 md:mb-6 shadow-sm group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300 text-primary-500">
+                            <!-- Heroicon: lightning-bolt -->
+                            <svg class="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 md:mb-4 text-primary-500">志の覚醒</h3>
+                        <p class="text-txt-secondary text-sm leading-relaxed">他者との対話を通じて、自分でも気づかなかった本当の志に出会います。</p>
+                    </div>
+
+                    <!-- Card 2: 一生涯の友 -->
+                    <div class="reveal bg-base-primary p-6 md:p-8 rounded-2xl transition-all duration-300 border border-transparent hover:border-primary-100 hover:bg-white hover:shadow-card-hover group cursor-default" style="transition-delay: 100ms;">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl flex items-center justify-center mb-4 md:mb-6 shadow-sm group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300 text-primary-500">
+                            <!-- Heroicon: user-group/handshake alt -->
+                            <svg class="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 md:mb-4 text-primary-500">一生涯の友</h3>
+                        <p class="text-txt-secondary text-sm leading-relaxed">肩書きや損得を抜きに、心で繋がる、信頼できる仲間が見つかります。</p>
+                    </div>
+
+                    <!-- Card 3: 異能の共鳴 -->
+                    <div class="reveal bg-base-primary p-6 md:p-8 rounded-2xl transition-all duration-300 border border-transparent hover:border-primary-100 hover:bg-white hover:shadow-card-hover group cursor-default" style="transition-delay: 200ms;">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl flex items-center justify-center mb-4 md:mb-6 shadow-sm group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300 text-primary-500">
+                            <!-- Heroicon: spark/puzzle/cube -->
+                            <svg class="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 md:mb-4 text-primary-500">異能の共鳴</h3>
+                        <p class="text-txt-secondary text-sm leading-relaxed">多様な価値観がぶつかり合い、化学反応が起き、新たなビジョンが生まれます。</p>
+                    </div>
+
+                    <!-- Card 4: 最初の一歩 -->
+                    <div class="reveal bg-base-primary p-6 md:p-8 rounded-2xl transition-all duration-300 border border-transparent hover:border-primary-100 hover:bg-white hover:shadow-card-hover group cursor-default" style="transition-delay: 300ms;">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl flex items-center justify-center mb-4 md:mb-6 shadow-sm group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300 text-primary-500">
+                            <!-- Heroicon: trending-up/sprout -->
+                            <svg class="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 md:mb-4 text-primary-500">最初の一歩</h3>
+                        <p class="text-txt-secondary text-sm leading-relaxed">熱狂を熱狂で終わらせない。仲間と共に、社会を変える一歩を踏み出します。</p>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- Section 4: What is Hive -->
+        <section id="about" class="py-20 md:py-32 bg-base-primary relative overflow-hidden">
+            <!-- Decorative background -->
+            <div class="absolute right-0 top-0 w-full md:w-1/2 h-full bg-gradient-to-l from-white to-transparent opacity-50"></div>
+            
+            <div class="container mx-auto px-4 md:px-6 max-w-5xl relative z-10">
+                <div class="grid md:grid-cols-12 gap-8 md:gap-16 items-start">
+                    <!-- 修正: stickyをmd:stickyに変更し、スマホでは解除。mb-12を追加してスマホ時の余白確保 -->
+                    <div class="md:col-span-5 reveal md:sticky md:top-32 mb-12 md:mb-0">
+                        <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-60">About Us</span>
+                        <h2 class="text-3xl md:text-5xl font-black text-primary-500 mt-3 mb-6 md:mb-8">Hiveとは？</h2>
+                        <div class="h-1.5 w-20 md:w-24 bg-primary-500 rounded mb-6 md:mb-8"></div>
+                        <p class="text-xl md:text-2xl font-bold text-txt-primary leading-relaxed mb-6 md:mb-8">
+                            志を起点に<br>社会の未来を動かす、<br>
+                            若者の挑戦コミュニティ
+                        </p>
+                        
+                        <!-- Added Link to Hive Japan -->
+                        <a href="https://hivejapan.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 text-white bg-primary-500 px-6 py-3 rounded-full font-bold hover:bg-primary-600 transition-all shadow-lg hover:shadow-xl group w-full md:w-auto justify-center md:justify-start">
+                            Hive Japan 公式サイト
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                    
+                    <div class="md:col-span-7 reveal space-y-8 md:space-y-12">
+                        <p class="text-txt-secondary leading-loose text-justify text-base md:text-lg">
+                            Hive Japanは、「日本の未来を切り拓く」という使命を掲げ、<strong class="text-primary-500 bg-white px-2 py-1 rounded shadow-sm">2022年末に設立された完全招待制のコミュニティ</strong>です。私たちは、日本が抱える様々な課題に挑むためには、高い志を持った同世代が「分野横断的」かつ「利害関係に縛られない」形で結びつくことが不可欠だと信じています。
+                        </p>
+                        
+                        <div class="bg-gradient-to-br from-primary-500 to-primary-800 text-white p-6 md:p-10 rounded-2xl shadow-xl relative overflow-hidden group hover:scale-[1.01] transition-transform duration-500">
+                            <!-- Background shapes -->
+                            <div class="absolute top-0 right-0 w-48 h-48 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/2 transition-transform duration-700 group-hover:scale-125"></div>
+                            <div class="absolute bottom-0 left-0 w-32 h-32 bg-white opacity-5 rounded-full translate-y-1/2 -translate-x-1/2 transition-transform duration-700 group-hover:scale-125"></div>
+                            
+                            <h4 class="text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center gap-3 relative z-10 font-montserrat tracking-wide">
+                                <span class="w-6 md:w-8 h-1 bg-white rounded"></span>
+                                OUR MISSION
+                            </h4>
+                            <p class="text-primary-50 text-sm md:text-base leading-relaxed text-justify relative z-10 font-medium opacity-90">
+                                課題先進国と呼ばれるようになり、少しずつ沈んでいく「日本」。山積する社会課題を一つ一つ解決して、明るい未来をもたらすためには、志高く考える有志が領域を超えて変革を起こすことが必要だと考えます。<br><br>
+                                ここに集まるのは、まだ志半ばの若者かもしれません。しかし、絶えず考え続け、これからの危機を乗り越え、新しい領域を開拓しようと前進を続ける、熱い魂を持った挑戦者たちです。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 5: Achievements -->
+        <section id="achievements" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-4 md:px-6 max-w-6xl">
+                <div class="text-center mb-16 md:mb-20 reveal">
+                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-60">Track Record</span>
+                    <h2 class="text-3xl md:text-5xl font-black text-primary-500 mt-3">HIVEの活動実績</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center mb-16 md:mb-24">
+                    <div class="reveal relative px-4 md:px-0 order-2 lg:order-1">
+                         <!-- Image with decoration -->
+                        <div class="absolute inset-0 bg-primary-100 rounded-2xl transform -rotate-3 scale-95 opacity-50 z-0"></div>
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczN_dzX5bGymPi7jQU9ELH8LGBP2NmZy2XCPO9KdRrOUDAqQBeAK_1eKT4TeI2amQGZMi42HD2U9rKvW9THCRFzjQALGR3U6fLZgnuS7SnzQsYszzlVIpEL_DSm6viugR069NfQ5wEjItFnPr-YwUAA=w567-h364-s-no-gm?authuser=0" alt="HIVEの活動風景" class="relative z-10 rounded-2xl shadow-xl w-full object-cover h-[300px] md:h-[450px] transform transition-transform duration-500 hover:scale-[1.01]">
+                    </div>
+
+                    <div class="space-y-8 md:space-y-12 reveal order-1 lg:order-2">
+                        <div class="flex gap-4 md:gap-6 group hover:-translate-x-2 transition-transform duration-300">
+                            <div class="flex-shrink-0 w-12 md:w-16 text-right pt-1 font-montserrat">
+                                <span class="text-3xl md:text-4xl font-black text-base-tertiary group-hover:text-primary-500 transition-colors">01</span>
+                            </div>
+                            <div class="border-l-4 border-base-tertiary pl-6 md:pl-8 pb-2 group-hover:border-primary-500 transition-colors duration-500">
+                                <h4 class="text-lg md:text-xl font-bold text-primary-500 mb-2 md:mb-3">PRE HIVE 2025</h4>
+                                <p class="text-txt-secondary text-sm leading-relaxed">20⼈規模の⼩規模な集まりで信頼関係を構築。共に未来を切り拓く仲間との絆を深める重要な第⼀歩を踏み出しました。</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 md:gap-6 group hover:-translate-x-2 transition-transform duration-300">
+                            <div class="flex-shrink-0 w-12 md:w-16 text-right pt-1 font-montserrat">
+                                <span class="text-3xl md:text-4xl font-black text-base-tertiary group-hover:text-primary-500 transition-colors">02</span>
+                            </div>
+                            <div class="border-l-4 border-base-tertiary pl-6 md:pl-8 pb-2 group-hover:border-primary-500 transition-colors duration-500">
+                                <h4 class="text-lg md:text-xl font-bold text-primary-500 mb-2 md:mb-3">HIVE JAPAN 2025</h4>
+                                <p class="text-txt-secondary text-sm leading-relaxed">千葉県にて参加者70名の合宿を開催。豪華登壇者との対話や交流を通じ、各⾃の問いに挑む仲間と共に志をアップデートしました。</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 md:gap-6 group hover:-translate-x-2 transition-transform duration-300">
+                            <div class="flex-shrink-0 w-12 md:w-16 text-right pt-1 font-montserrat">
+                                <span class="text-3xl md:text-4xl font-black text-base-tertiary group-hover:text-primary-500 transition-colors">03</span>
+                            </div>
+                            <div class="border-l-4 border-base-tertiary pl-6 md:pl-8 pb-2 group-hover:border-primary-500 transition-colors duration-500">
+                                <h4 class="text-lg md:text-xl font-bold text-primary-500 mb-2 md:mb-3">DEEP HIVE 2025</h4>
+                                <p class="text-txt-secondary text-sm leading-relaxed">出会った仲間とより深い関係を築くためのオープンな交流イベント。刺激的な友達と共に最⾼のひとときを過ごす場となりました。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regional Hives Section -->
+                <div class="reveal mt-12 md:mt-24 pt-12 md:pt-16 border-t border-base-tertiary">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary-500 mb-8 md:mb-12 text-center font-montserrat tracking-wide">REGIONAL HIVES</h3>
+                    <div class="grid md:grid-cols-2 gap-6 md:gap-12">
+                        <!-- Hive Okayama -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-base-tertiary overflow-hidden group hover:shadow-card-hover hover:border-primary-200 transition-all duration-300 flex flex-col transform hover:-translate-y-1">
+                            <div class="relative h-48 md:h-64 overflow-hidden">
+                                <img src="https://i.gyazo.com/73e78eeefd7e1f88d51a19687c8e1738.png" alt="Hive Okayama" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div class="absolute inset-0 bg-primary-900/20 group-hover:bg-transparent transition-colors duration-300"></div>
+                                <div class="absolute bottom-4 left-4">
+                                    <span class="bg-white/90 backdrop-blur text-primary-600 px-3 py-1 rounded text-xs font-bold shadow-sm">OKAYAMA</span>
+                                </div>
+                            </div>
+                            <div class="p-6 md:p-8 flex flex-col flex-grow">
+                                <h4 class="text-lg md:text-xl font-bold text-primary-500 mb-3 md:mb-4">Hive Okayama</h4>
+                                <p class="text-txt-secondary text-sm leading-relaxed mb-6 md:mb-8 flex-grow">
+                                    岡山で開催された地域展開の第一弾。地元のリーダーたちと共に、地域の未来について熱い議論が交わされました。
+                                </p>
+                                <a href="https://hivejapan.org/event-1-1-2" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-between w-full px-5 py-3 md:px-6 md:py-4 text-sm font-bold text-white transition-all duration-200 bg-primary-500 rounded-xl hover:bg-primary-600 group">
+                                    詳細を見る
+                                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Hive Miyagi -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-base-tertiary overflow-hidden group hover:shadow-card-hover hover:border-primary-200 transition-all duration-300 flex flex-col transform hover:-translate-y-1">
+                            <div class="relative h-48 md:h-64 overflow-hidden">
+                                <img src="https://i.gyazo.com/7ff04b910862e58f17a2fcb9d080db97.png" alt="Hive Miyagi" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div class="absolute inset-0 bg-primary-900/20 group-hover:bg-transparent transition-colors duration-300"></div>
+                                <div class="absolute bottom-4 left-4">
+                                    <span class="bg-white/90 backdrop-blur text-primary-600 px-3 py-1 rounded text-xs font-bold shadow-sm">MIYAGI</span>
+                                </div>
+                            </div>
+                            <div class="p-6 md:p-8 flex flex-col flex-grow">
+                                <h4 class="text-lg md:text-xl font-bold text-primary-500 mb-3 md:mb-4">Hive Miyagi</h4>
+                                <p class="text-txt-secondary text-sm leading-relaxed mb-6 md:mb-8 flex-grow">
+                                    東北の地、宮城での開催。復興から創造へ。次世代のリーダーたちが集い、新たな希望の灯をともしました。
+                                </p>
+                                <a href="https://hivejapan.org/event-1-1-1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-between w-full px-5 py-3 md:px-6 md:py-4 text-sm font-bold text-white transition-all duration-200 bg-primary-500 rounded-xl hover:bg-primary-600 group">
+                                    詳細を見る
+                                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 6: Speakers -->
+        <section class="py-20 md:py-32 bg-base-primary border-t border-base-tertiary">
+            <div class="container mx-auto px-4 md:px-6 max-w-6xl">
+                <div class="text-center mb-16 md:mb-20 reveal">
+                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-60">Advisors & Speakers</span>
+                    <h2 class="text-3xl md:text-5xl font-black text-primary-500 mt-3">アドバイザー & 過去の登壇者</h2>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-10 md:gap-16 reveal">
+                     <!-- Advisors -->
+                    <div>
+                         <div class="flex items-center gap-4 mb-6 md:mb-8 pb-4 border-b border-base-tertiary">
+                             <span class="text-3xl text-primary-500">
+                                <!-- Heroicon: academic-cap -->
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
+                             </span>
+                             <h3 class="text-2xl font-bold text-primary-500">アドバイザリーボード</h3>
+                         </div>
+                         
+                         <div class="grid gap-4 md:gap-6">
+                             <!-- Advisor 1 -->
+                             <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-base-tertiary hover:border-primary-300 hover:shadow-md transition-all duration-300 group">
+                                 <div class="flex items-start justify-between mb-4">
+                                     <div class="text-xs text-primary-500 font-bold tracking-wide uppercase bg-primary-50 px-2 py-1 rounded">Professor</div>
+                                 </div>
+                                 <h4 class="font-black text-xl text-txt-primary mb-2 group-hover:text-primary-600 transition-colors">各務 茂夫 氏</h4>
+                                 <p class="text-sm text-txt-secondary font-medium">東京大学 大学院工学系研究科 教授</p>
+                             </div>
+                             
+                             <!-- Advisor 2 -->
+                             <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-base-tertiary hover:border-primary-300 hover:shadow-md transition-all duration-300 group">
+                                 <div class="flex items-start justify-between mb-4">
+                                     <div class="text-xs text-primary-500 font-bold tracking-wide uppercase bg-primary-50 px-2 py-1 rounded">Professor / Ex-Vice Minister</div>
+                                 </div>
+                                 <h4 class="font-black text-xl text-txt-primary mb-2 group-hover:text-primary-600 transition-colors">鈴木 寛 氏</h4>
+                                 <p class="text-sm text-txt-secondary font-medium">東京大学公共政策大学院教授<br>元文部科学副大臣</p>
+                             </div>
+                         </div>
+                    </div>
+
+                    <!-- Past Speakers -->
+                    <div>
+                        <div class="flex items-center gap-4 mb-6 md:mb-8 pb-4 border-b border-base-tertiary">
+                             <span class="text-3xl text-primary-500">
+                                <!-- Heroicon: microphone -->
+                                <svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                             </span>
+                             <h3 class="text-2xl font-bold text-primary-500">過去の登壇者</h3>
+                        </div>
+                        
+                        <p class="text-txt-secondary mb-8 text-sm">日本のトップランナーたちと、対等な立場で未来を語り合えるのもHiveの魅力です。</p>
+                        
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <!-- Speaker 1 -->
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-base-tertiary hover:border-primary-300 transition-all duration-300 hover:-translate-y-1">
+                                <span class="text-[10px] font-bold text-white bg-primary-500 px-2 py-0.5 rounded-full mb-3 inline-block">HIVE JAPAN</span>
+                                <h4 class="font-bold text-lg text-txt-primary mb-1">鈴木 健 氏</h4>
+                                <p class="text-xs text-txt-muted">スマートニュース共同創業者</p>
+                            </div>
+                            
+                            <!-- Speaker 2 -->
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-base-tertiary hover:border-primary-300 transition-all duration-300 hover:-translate-y-1">
+                                <span class="text-[10px] font-bold text-white bg-primary-500 px-2 py-0.5 rounded-full mb-3 inline-block">HIVE JAPAN</span>
+                                <h4 class="font-bold text-lg text-txt-primary mb-1">田久保 善彦 氏</h4>
+                                <p class="text-xs text-txt-muted">グロービス経営大学院 副学長</p>
+                            </div>
+                            
+                            <!-- Speaker 3 -->
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-base-tertiary hover:border-primary-300 transition-all duration-300 hover:-translate-y-1">
+                                <span class="text-[10px] font-bold text-white bg-primary-500 px-2 py-0.5 rounded-full mb-3 inline-block">HIVE JAPAN</span>
+                                <h4 class="font-bold text-lg text-txt-primary mb-1">熊谷 俊人 氏</h4>
+                                <p class="text-xs text-txt-muted">千葉県知事</p>
+                            </div>
+
+                            <!-- Speaker 4 -->
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-base-tertiary hover:border-primary-300 transition-all duration-300 hover:-translate-y-1">
+                                <span class="text-[10px] font-bold text-txt-secondary bg-base-tertiary px-2 py-0.5 rounded-full mb-3 inline-block">HIVE OKAYAMA</span>
+                                <h4 class="font-bold text-lg text-txt-primary mb-1">伊原木 隆太 氏</h4>
+                                <p class="text-xs text-txt-muted">岡山県知事</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Why Fukuoka -->
+        <section id="why-fukuoka" class="py-20 md:py-32 bg-primary-900 text-white relative overflow-hidden">
+            <!-- Background effects -->
+            <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center mix-blend-overlay opacity-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-900 via-primary-900/90 to-transparent"></div>
+
+            <div class="container mx-auto px-4 md:px-6 max-w-6xl relative z-10">
+                <div class="text-center mb-16 md:mb-20 reveal">
+                    <span class="text-primary-300 font-bold tracking-widest uppercase text-xs font-montserrat opacity-60">Location</span>
+                    <h2 class="text-3xl md:text-5xl font-black mt-3 text-white">なぜ、舞台は「福岡」なのか</h2>
+                    <p class="text-base md:text-xl text-primary-200 mt-6 font-medium">この熱狂は、福岡でしか生まれません。</p>
+                </div>
+                
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Feature 1: 挑戦者を愛する温かさ -->
+                    <div class="reveal bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/10 hover:border-primary-400/50 hover:bg-white/10 transition-all duration-300 group hover:-translate-y-1">
+                        <div class="text-4xl mb-6 text-primary-200 group-hover:text-white transition-colors">
+                            <!-- Heroicon: heart -->
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 text-white">挑戦者を愛する温かさ</h3>
+                        <p class="text-primary-200 text-sm leading-relaxed">「失敗しても、よかよか。」挑戦者を面白がり、背中を押してくれる。そんな温かいお節介が、この街の日常です。</p>
+                    </div>
+
+                    <!-- Feature 2: 暮らしと挑戦の共鳴 -->
+                    <div class="reveal bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/10 hover:border-primary-400/50 hover:bg-white/10 transition-all duration-300 group hover:-translate-y-1" style="transition-delay: 100ms;">
+                        <div class="text-4xl mb-6 text-primary-200 group-hover:text-white transition-colors">
+                            <!-- Heroicon: office-building/sun -->
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 text-white">暮らしと挑戦の共鳴</h3>
+                        <p class="text-primary-200 text-sm leading-relaxed">都市の利便性と、海や山などの豊かな自然が隣り合わせ。仕事も遊びも全力で楽しむ。そんな欲張りな生き方が、ここにはあります。</p>
+                    </div>
+
+                    <!-- Feature 3: 巨大な実験場 -->
+                    <div class="reveal bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/10 hover:border-primary-400/50 hover:bg-white/10 transition-all duration-300 group hover:-translate-y-1" style="transition-delay: 200ms;">
+                        <div class="text-4xl mb-6 text-primary-200 group-hover:text-white transition-colors">
+                            <!-- Heroicon: fire -->
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 text-white">巨大な実験場</h3>
+                        <p class="text-primary-200 text-sm leading-relaxed">街全体が、巨大な実験場。スタートアップも老舗も、学生も大人も。面白いことなら「まずはやってみよう」で動き出す、圧倒的なスピード感。</p>
+                    </div>
+
+                    <!-- Feature 4: アジアとの交差 -->
+                    <div class="reveal bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/10 hover:border-primary-400/50 hover:bg-white/10 transition-all duration-300 group hover:-translate-y-1" style="transition-delay: 300ms;">
+                        <div class="text-4xl mb-6 text-primary-200 group-hover:text-white transition-colors">
+                            <!-- Heroicon: globe-alt -->
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 text-white">アジアとの交差</h3>
+                        <p class="text-primary-200 text-sm leading-relaxed">古くから、海を越えてくる文化や人を受け入れてきた街。多様な「異物」が混ざり合い、熱狂を生む。次はあなたが、その新しい風になってください。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Final Message -->
+        <section id="message" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-4 md:px-6 max-w-4xl text-center">
+                <div class="reveal">
+                    <h2 class="text-2xl md:text-4xl font-black text-primary-500 mb-8 md:mb-16">最後に、あなたへ</h2>
+                    
+                    <div class="relative bg-base-primary p-8 md:p-16 rounded-3xl shadow-card border border-base-tertiary text-left overflow-hidden">
+                        <!-- 装飾アイコンの位置と透明度を調整し、文字とかぶらないように修正 -->
+                        <svg class="absolute top-4 left-4 md:top-8 md:left-8 w-16 h-16 md:w-20 md:h-20 text-primary-200 opacity-20 pointer-events-none" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9C9.00001 15 9.00001 15 9.00001 15C9.00001 11.2312 11.2313 9 15.0001 9H16V5H15.0001C9.47716 5 5 9.47715 5 15V21H14.017ZM21.017 21L21.017 18C21.017 16.8954 20.1216 16 19.017 16H16C16 15 16 15 16 15C16 11.2312 18.2313 9 22.0001 9H23V5H22.0001C16.4772 5 12 9.47715 12 15V21H21.017Z"/></svg>
+                        
+                        <div class="space-y-8 md:space-y-10 text-txt-primary leading-loose relative z-10 text-base md:text-lg">
+                            <div class="text-center relative">
+                                <p class="text-xl md:text-3xl font-bold text-primary-500 inline-block relative z-10 py-2">
+                                    あなたの熱量を、<br class="md:hidden">ぶつけに来てください。
+                                </p>
+                            </div>
+
+                            <p>1人では考えても、なかなか行動に踏み出せないかもしれない。本気の時ほど、不格好で、なりふりなんてかまっていられない。うまくいかないかもしれないと不安と戦いながら前に進むことは容易ではないことです。</p>
+                            <p>不格好なあなたを、私たちは歓迎します。なんたって、運営している私たち自身もまだ未熟で、不格好ながら前に進もうとしている仲間だからです。</p>
+                            <p>挫けそうになった時。"世間"に呑まれそうになった時。同じように熱く前に進もうとする仲間の存在を感じられることで、心の炎は消えかけても何度でも燃え盛ることができると思うのです。</p>
+                            
+                            <div class="border-t border-base-tertiary my-8 md:my-10"></div>
+                            
+                            <div class="text-center">
+                                <p class="font-medium mb-6 text-sm md:text-base">この福岡という土地での語らいが、未来につながる大きな一歩になることを願って。<br>一緒に、語らいましょう。そして、踏み出しましょう。</p>
+                                <p class="text-xl md:text-2xl font-bold text-primary-500">あなたの参加を、心からお待ちしています。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Call to Action Section (New) -->
+        <section id="apply" class="py-20 md:py-32 bg-primary-900 relative overflow-hidden">
+            <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center mix-blend-overlay opacity-20"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-900 to-primary-800/80"></div>
+            
+            <div class="container mx-auto px-4 md:px-6 relative z-10 text-center">
+                 <div class="reveal max-w-3xl mx-auto space-y-8">
+                     <h2 class="text-3xl md:text-5xl font-black text-white leading-tight drop-shadow-lg">
+                         10年後の日本を、<br>
+                         ここから創り出そう。
+                     </h2>
+                     <p class="text-primary-200 text-lg md:text-xl font-medium">
+                         定員：50名<br>
+                         Invitation Only
+                     </p>
+                     
+                     <div class="pt-8">
+                        <a href="#" class="btn-shine inline-flex items-center justify-center px-10 py-5 text-base md:text-lg font-bold text-primary-900 transition-all duration-300 bg-white rounded-full hover:bg-primary-50 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] shadow-2xl group animate-pulse-glow">
+                            参加お申し込みはこちら
+                            <svg class="w-6 h-6 ml-2 -mr-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                        <p class="mt-4 text-primary-400 text-xs opacity-70">※外部のお申し込みフォームへ移動します</p>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer id="contact" class="bg-primary-900 text-white pt-20 pb-10 border-t border-primary-800">
+        <div class="container mx-auto px-6 text-center">
+            
+            <div class="inline-block px-5 py-2 rounded-full bg-primary-800 border border-primary-700 text-primary-300 text-xs font-bold tracking-[0.2em] mb-8">
+                INVITATION ONLY
+            </div>
+
+            <h2 class="text-3xl font-black mb-6 font-montserrat tracking-tight">Hive Fukuoka 2026</h2>
+            <p class="mb-12 max-w-xl mx-auto text-primary-300 text-sm leading-relaxed">
+                このページは、Hive Fukuoka 2026にご招待させていただいた方への特別なご案内です。<br>
+                大変恐れ入りますが、本ページのURLの外部への共有はご遠慮くださいますようお願い申し上げます。
+            </p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 text-sm text-primary-300 mb-16 font-montserrat">
+                <a href="https://hivejapan.org" target="_blank" rel="noopener noreferrer" class="hover:text-white transition flex items-center gap-2 group">
+                    <span class="p-2 bg-primary-800 rounded-full group-hover:bg-primary-700 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                    </span>
+                    hivejapan.org
+                </a>
+                <span class="hidden md:inline text-primary-700">|</span>
+                <span class="hover:text-white transition flex items-center gap-2 group">
+                    <span class="p-2 bg-primary-800 rounded-full group-hover:bg-primary-700 transition">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </span>
+                    hive.fukuoka@gmail.com
+                </span>
+            </div>
+
+            <div class="border-t border-primary-800 pt-8 text-xs text-primary-500">
+                &copy; 2026 Hive Fukuoka. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Mobile Floating CTA -->
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-primary-100 md:hidden z-40 shadow-[0_-5px_20px_rgba(0,0,0,0.1)]">
+        <a href="#apply" class="btn-shine block w-full py-4 text-center bg-primary-500 text-white font-bold rounded-full shadow-lg hover:bg-primary-600 active:scale-95 transition-all animate-pulse-glow">
+            参加お申し込みはこちら
+        </a>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
+        for (let i = 0; i < mobileMenuLinks.length; i++) {
+            mobileMenuLinks[i].addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        }
+        
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const navContainer = document.getElementById('nav-container');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                // Scrolled state
+                navContainer.classList.add('shadow-lg');
+                navContainer.classList.remove('py-4');
+                navContainer.classList.add('py-3');
+            } else {
+                // Top state
+                navContainer.classList.remove('shadow-lg');
+                navContainer.classList.remove('py-3');
+                navContainer.classList.add('py-4');
+            }
+        });
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // Adjusted for mobile responsiveness
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>
