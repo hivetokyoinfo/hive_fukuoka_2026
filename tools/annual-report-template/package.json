@@ -1,0 +1,16 @@
+{
+  "name": "hive-annual-report-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PowerPoint generator for Hive annual event reports",
+  "scripts": {
+    "build:2026": "node examples/2026/build-deck.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pptxgenjs": "4.0.1",
+    "sharp": "0.34.5"
+  }
+}

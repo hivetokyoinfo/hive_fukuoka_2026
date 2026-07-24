@@ -1,0 +1,7 @@
+node_modules/
+examples/*/build/
+examples/*/assets/photos/
+examples/*/assets/private/
+.DS_Store
+*.pdf
+*.pptx
