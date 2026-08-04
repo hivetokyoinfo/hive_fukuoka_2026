@@ -20,6 +20,7 @@ GitHub Pagesで公開するHive Fukuoka公式サイトです。
 - `assets/meta/`: OGPなど検索・SNS表示用の画像
 - `tools/annual-report-template/`: 開催レポート資料の再現用コード
 - `docs/ANNUAL_RELEASE_CHECKLIST.md`: 次年度公開時の確認手順
+- `docs/DEVELOPMENT_LOG_2026.md`: 2026年度の資料・サイト制作記録
 
 サイトでは、情報を次の2層に分けています。
 
