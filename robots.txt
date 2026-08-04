@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hivejapaninfo.github.io/hive_fukuoka_2026/sitemap.xml

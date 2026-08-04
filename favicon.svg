@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hive Fukuoka">
-  <rect width="64" height="64" rx="14" fill="#055cad"/>
-  <path d="M16 20h8v24h-8zM40 20h8v24h-8zM24 28h16v8H24z" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Hive Fukuoka">
+  <rect width="100" height="100" fill="#055cad"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="11">
+    <path d="M26 17v66M74 17v66M26 50h48" stroke="#062b50" transform="translate(3 0)"/>
+    <path d="M26 17v66M74 17v66M26 50h48" stroke="#8bc5f4" transform="translate(-3 0)"/>
+    <path d="M26 17v66M74 17v66M26 50h48" stroke="#ffffff"/>
+  </g>
 </svg>
